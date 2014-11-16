@@ -69,5 +69,16 @@ namespace EdgeJs.NativeModuleSupport
 
             return Edge.Func(code);
         }
+
+        public static void RegisterPreCompiledModules(params string[] topLevelModules)
+        {
+            lock (initializeLock)
+            {
+                foreach (string topLevelModule in topLevelModules)
+                {
+                    loadedTopLevelModules.Add(topLevelModule);
+                }
+            }
+        }
     }
 }
