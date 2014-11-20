@@ -17,8 +17,14 @@ namespace EdgeJs.NativeModuleSupport
         private static readonly object initializeLock = new object();
         private static string assemblyDirectory;
 
+        /// <summary>
+        /// Gets or sets the path to the node executable. Defaults to node executable provided by NCapsulate.Node.
+        /// </summary>
         public static string NodeExe { get; set; }
 
+        /// <summary>
+        /// Gets or sets the logger used by MSBuild when re-compiling the modules.
+        /// </summary>
         public static ILogger Logger { get; set; }
 
         private static string AssemblyDirectory
@@ -41,6 +47,15 @@ namespace EdgeJs.NativeModuleSupport
             }
         }
 
+        /// <summary>
+        /// Creates a call to the specified javascript code.
+        /// </summary>
+        /// <param name="code">The javascript code that will be able to be executed.</param>
+        /// <param name="topLevelModules">The top level modules that will have their native dependencies re-compiled.</param>
+        /// <returns>A call to the specified javascript code.</returns>
+        /// <remarks>
+        /// Each module is only re-built once.
+        /// </remarks>
         public static Func<object, Task<object>> Func(string code, params string[] topLevelModules)
         {
             lock (initializeLock)
@@ -70,6 +85,10 @@ namespace EdgeJs.NativeModuleSupport
             return Edge.Func(code);
         }
 
+        /// <summary>
+        /// Registers any modules that have already been compiled.
+        /// </summary>
+        /// <param name="topLevelModules">The modules that have already been compiled.</param>
         public static void RegisterPreCompiledModules(params string[] topLevelModules)
         {
             lock (initializeLock)
