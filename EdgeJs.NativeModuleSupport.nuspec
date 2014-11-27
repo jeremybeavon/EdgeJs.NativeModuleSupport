@@ -2,8 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>EdgeJs.NativeModuleSupport</id>
-        <version>0.9.2.3</version>
+        <version>0.9.2.5</version>
         <authors>Jeremy Beavon</authors>
+        <projectUrl>https://github.com/jeremybeavon/EdgeJs.NativeModuleSupport</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Add support for using native node modules with Edge.js</description>
         <dependencies>
@@ -13,12 +14,13 @@
         </dependencies>
     </metadata>
     <files>
-        <file src="DLL\App_Build\EdgeJs.NativeModuleSupport.targets" target="build\EdgeJs.NativeModuleSupport.targets" />
+        <file src="NuGet\EdgeJs.NativeModuleSupport.targets" target="build\EdgeJs.NativeModuleSupport.targets" />
         <file src="DLL\edge\x64\node.lib" target="content\edge\x64\node.lib" />
         <file src="DLL\edge\x86\node.lib" target="content\edge\x86\node.lib" />
         <file src="DLL\edge\native-node-module.msbuild" target="content\edge\native-node-module.msbuild" />
         <file src="DLL\edge\node.exe" target="content\edge\node.exe" />
         <file src="DLL\bin\Release\EdgeJs.NativeModuleSupport.dll" target="lib\net45\EdgeJs.NativeModuleSupport.dll" />
+        <file src="DLL\bin\Release\EdgeJs.NativeModuleSupport.XML" target="lib\net45\EdgeJs.NativeModuleSupport.XML" />
         <file src="DLL\edge\x64\node.dll" target="tools\x64\node.dll" />
         <file src="DLL\edge\x86\node.dll" target="tools\x86\node.dll" />
         <file src="NuGet\init.bat" target="tools\init.bat" />

@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <NodeDirectory>$(MSBuildThisFileDirectory)..\..\Ncapsulate.Node.0.10.28\nodejs\</NodeDirectory>
+    <NpmJsFile>$(NodeDirectory)node_modules\npm\bin\npm-cli.js</NpmJsFile>
+  </PropertyGroup>
+  <Target Name="EdgeJsNativeModuleSupport" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <NodeGypModuleFiles Include="$(ProjectDir)edge\node_modules\node-gyp\**\*.*"/>
+    </ItemGroup>
+    <MakeDir Directories="$(TargetDir)edge" />
+    <Copy SourceFiles="@(NodeGypModuleFiles)"
+          DestinationFolder="$(TargetDir)edge\node_modules\node-gyp\%(RecursiveDir)"
+          Condition="Exists('$(ProjectDir)edge\node_modules\node-gyp')" />
+    <Exec Command="&quot;$(NodeDirectory)node.exe&quot; &quot;$(NpmJsFile)&quot; install node-gyp"
+          WorkingDirectory="$(TargetDir)edge"
+          Condition="!Exists('$(TargetDir)edge\node_modules\node-gyp')"/>
+  </Target>
+</Project>
