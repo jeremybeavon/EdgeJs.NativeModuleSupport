@@ -5,15 +5,13 @@
     <NpmJsFile>$(NodeDirectory)node_modules\npm\bin\npm-cli.js</NpmJsFile>
   </PropertyGroup>
   <Target Name="EdgeJsNativeModuleSupport" AfterTargets="AfterBuild">
+    <Exec Command="&quot;$(NodeDirectory)node.exe&quot; &quot;$(NpmJsFile)&quot; install node-gyp"
+          WorkingDirectory="$(ProjectDir)edge"
+          Condition="!Exists('$(ProjectDir)edge\node_modules\node-gyp')"/>
     <ItemGroup>
       <NodeGypModuleFiles Include="$(ProjectDir)edge\node_modules\node-gyp\**\*.*"/>
     </ItemGroup>
-    <MakeDir Directories="$(TargetDir)edge" />
     <Copy SourceFiles="@(NodeGypModuleFiles)"
-          DestinationFolder="$(TargetDir)edge\node_modules\node-gyp\%(RecursiveDir)"
-          Condition="Exists('$(ProjectDir)edge\node_modules\node-gyp')" />
-    <Exec Command="&quot;$(NodeDirectory)node.exe&quot; &quot;$(NpmJsFile)&quot; install node-gyp"
-          WorkingDirectory="$(TargetDir)edge"
-          Condition="!Exists('$(TargetDir)edge\node_modules\node-gyp')"/>
+          DestinationFolder="$(TargetDir)edge\node_modules\node-gyp\%(RecursiveDir)" />
   </Target>
 </Project>
